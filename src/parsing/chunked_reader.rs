@@ -64,7 +64,8 @@ where
                 }
             }
 
-            self.buffer.resize(cmp::min(self.remaining, MAX_BUFFER_LEN), 0);
+            self.consumed = cmp::min(self.remaining, MAX_BUFFER_LEN);
+            self.buffer.resize(self.consumed, 0);
             self.inner.read_exact(&mut self.buffer)?;
             self.consumed = 0;
             self.remaining -= self.buffer.len();
